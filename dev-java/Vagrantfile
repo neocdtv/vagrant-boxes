@@ -29,17 +29,17 @@ Vagrant.configure("2") do |config|
         # BASIC INIT                               #
         ############################################
         VBOX_VERSION=#{ENV['VBOX_VERSION']};    		    
-	    VAGRANT_USER_HOME="/home/vagrant"
-	    DEBIAN_FRONTEND=noninteractive
+	VAGRANT_USER_HOME="/home/vagrant"
+	DEBIAN_FRONTEND=noninteractive
         apt update  
 
         # disable sudo-password for vagrant-user
     	echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
         
         # setup german keyboard
-	    localectl set-keymap de
-	    echo "" >> $VAGRANT_USER_HOME/.bashrc    
-	    echo 'setxkbmap de'  >> $VAGRANT_USER_HOME/.bashrc
+	localectl set-keymap de
+	echo "" >> $VAGRANT_USER_HOME/.bashrc    
+	echo 'setxkbmap de'  >> $VAGRANT_USER_HOME/.bashrc
 
         ############################################
         # VBOX ADDITIONS                           #
@@ -47,11 +47,11 @@ Vagrant.configure("2") do |config|
         mkdir -p $VAGRANT_USER_HOME/Downloads
         cd $VAGRANT_USER_HOME/Downloads        	    
         apt install -y libaio1 libaio-dev build-essential dkms linux-headers-$(uname -r) gcc make perl
-	    wget -O VBoxGuestAdditions.iso https://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
-	    mkdir /media/cdrom
-	    mount -o loop ./VBoxGuestAdditions.iso /media/cdrom
-	    cd /media/cdrom
-	    printf yes\\n | ./VBoxLinuxAdditions.run   
+	wget -O VBoxGuestAdditions.iso https://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
+	mkdir /media/cdrom
+	mount -o loop ./VBoxGuestAdditions.iso /media/cdrom
+	cd /media/cdrom
+	printf yes\\n | ./VBoxLinuxAdditions.run   
     
         ############################################
         # CRIU                                     #
@@ -60,10 +60,10 @@ Vagrant.configure("2") do |config|
         cd $VAGRANT_USER_HOME/Projects        
         apt install -y git
         git clone https://github.com/checkpoint-restore/criu.git 
-	    cd criu
+	cd criu
         ./scripts/install-debian-pkgs.sh 
-	    make
-	    cp ./criu/criu /usr/local/bin/
+	make
+	cp ./criu/criu /usr/local/bin/
         cp ./scripts/criu-ns /usr/local/bin/
 
         # add settings for every jdk and maven and convinient switches in bashrs
