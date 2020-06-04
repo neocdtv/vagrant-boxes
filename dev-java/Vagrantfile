@@ -41,21 +41,20 @@ Vagrant.configure("2") do |config|
 	echo "" >> $VAGRANT_USER_HOME/.bashrc    
 	echo 'setxkbmap de'  >> $VAGRANT_USER_HOME/.bashrc
 
+	mkdir -p $VAGRANT_USER_HOME/scripts
+
         ############################################
         # VBOX ADDITIONS                           #
         ############################################
-        mkdir -p $VAGRANT_USER_HOME/Downloads
-        cd $VAGRANT_USER_HOME/Downloads        	    
-        apt install -y libaio1 libaio-dev build-essential dkms linux-headers-$(uname -r) gcc make perl
-	wget -O VBoxGuestAdditions.iso https://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
-	mkdir /media/cdrom
-	mount -o loop ./VBoxGuestAdditions.iso /media/cdrom
-	cd /media/cdrom
-	printf yes\\n | ./VBoxLinuxAdditions.run   
-    
+	cd $VAGRANT_USER_HOME/scripts
+	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/setup_vbox_additions.sh
+	chmod a+x setup_vbox_additions.sh
+	./setup_vbox_additions.sh $VAGRANT_USER_HOME $VBOX_VERSION
+	
         ############################################
         # CRIU                                     #
         ############################################
+	cd $VAGRANT_USER_HOME/scripts
         mkdir -p $VAGRANT_USER_HOME/Projects
         cd $VAGRANT_USER_HOME/Projects        
         apt install -y git
