@@ -55,16 +55,10 @@ Vagrant.configure("2") do |config|
         # CRIU                                     #
         ############################################
 	cd $VAGRANT_USER_HOME/scripts
-        mkdir -p $VAGRANT_USER_HOME/Projects
-        cd $VAGRANT_USER_HOME/Projects        
-        apt install -y git
-        git clone https://github.com/checkpoint-restore/criu.git 
-	cd criu
-        ./scripts/install-debian-pkgs.sh 
-	make
-	cp ./criu/criu /usr/local/bin/
-        cp ./scripts/criu-ns /usr/local/bin/
-
+	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/setup_criu.sh
+	chmod a+x setup_criu.sh
+	./setup_criu.sh $VAGRANT_USER_HOME
+        
         # add settings for every jdk and maven and convinient switches in bashrs
         # TODO: jdk hotspot 8,9,11,12,13,14
         # TODO: jdk openj9 8,9,11,12,13,14
