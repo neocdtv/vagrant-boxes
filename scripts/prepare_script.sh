@@ -1,5 +1,5 @@
 #!/bin/bash
 SCRIPT_NAME=$1
-cd $USER_HOME/scripts
+cd $SCRIPTS_DIR
 curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/$SCRIPT_NAME
 chmod a+x $SCRIPT_NAME

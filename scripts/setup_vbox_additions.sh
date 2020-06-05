@@ -1,6 +1,4 @@
 #!/bin/bash
-USER_HOME=$1
-VBOX_VERSION=$2
 mkdir -p $USER_HOME/Downloads
 cd $USER_HOME/Downloads        	    
 apt install -y libaio1 libaio-dev build-essential dkms linux-headers-$(uname -r) gcc make perl
