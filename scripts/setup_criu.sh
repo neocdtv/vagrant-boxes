@@ -1,5 +1,4 @@
 #!/bin/bash
-USER_HOME=$1
 mkdir -p $USER_HOME/Projects
 cd $USER_HOME/Projects        
 apt install -y git
