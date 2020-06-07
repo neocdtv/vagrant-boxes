@@ -7,13 +7,16 @@ tar -xzvf zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
 rm zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
 
 echo "" >> $USER_HOME/.bashrc
+echo 'export MAVEN_OPTS_HOTSPOT="-Xnoclassgc -Xms1g -Xmx2g -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:+UseParallelGC -Xverify:none -Xshare:on"' >> $USER_HOME/.bashrc
+echo "" >> $USER_HOME/.bashrc
 echo "jdk_11_hotspot() {" >> $USER_HOME/.bashrc
-echo '	export JAVA_HOME=$JDK_ZULU/zulu11.39.15-ca-jdk11.0.7-linux_x64'  >> $USER_HOME/.bashrc
+echo "	export JAVA_HOME=$JDK_ZULU/zulu11.39.15-ca-jdk11.0.7-linux_x64"  >> $USER_HOME/.bashrc
 echo '	export PATH="$JAVA_HOME/bin:$PATH"'  >> $USER_HOME/.bashrc
-# add M2_HOME
+echo '	export MAVEN_OPTS="$MAVEN_OPTS_HOTSPOT"' >> $USER_HOME/.bashrc
+# add dump
 echo "}" >> $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.bashrc
-# configure zulu 11 as default jdk
+# configure hotspot 11 as default jdk
 echo "jdk_11_hotspot" >> $USER_HOME/.bashrc
 
 cd $USER_HOME
