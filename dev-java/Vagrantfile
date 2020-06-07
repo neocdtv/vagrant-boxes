@@ -26,44 +26,84 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: <<-SHELL 		
 
         ############################################
-        # BASIC INIT                               #
+        # BASIC INIT                            
         ############################################
-        VBOX_VERSION=#{ENV['VBOX_VERSION']};    		    
-	VAGRANT_USER_HOME="/home/vagrant"
-	DEBIAN_FRONTEND=noninteractive
-        apt update  
-
+	export VBOX_VERSION=#{ENV['VBOX_VERSION']};    		    
+	export USER_HOME="/home/vagrant"
+	export DEBIAN_FRONTEND=noninteractive
+	export SCRIPTS_DIR=$USER_HOME/scripts
+	mkdir -p "$SCRIPTS_DIR"
+	apt update  
+	
+	cd $SCRIPTS_DIR
+	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/prepare_script.sh
+	chmod a+x ./prepare_script.sh
+	
         # disable sudo-password for vagrant-user
     	echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
         
-        # setup german keyboard
-	localectl set-keymap de
-	echo "" >> $VAGRANT_USER_HOME/.bashrc    
-	echo 'setxkbmap de'  >> $VAGRANT_USER_HOME/.bashrc
-
-	mkdir -p $VAGRANT_USER_HOME/scripts
+	############################################
+        # LOCALIZATIONS                           
+        ############################################
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_keyboard_de.sh
+	./setup_keyboard_de.sh
 
         ############################################
-        # VBOX ADDITIONS                           #
+        # VBOX ADDITIONS                           
         ############################################
-	cd $VAGRANT_USER_HOME/scripts
-	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/setup_vbox_additions.sh
-	chmod a+x setup_vbox_additions.sh
-	./setup_vbox_additions.sh $VAGRANT_USER_HOME $VBOX_VERSION
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_vbox_additions.sh
+	./setup_vbox_additions.sh
 	
         ############################################
-        # CRIU                                     #
+        # CRIU                                     
         ############################################
-	cd $VAGRANT_USER_HOME/scripts
-	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/setup_criu.sh
-	chmod a+x setup_criu.sh
-	./setup_criu.sh $VAGRANT_USER_HOME
-        
-        # add settings for every jdk and maven and convinient switches in bashrs
-        # TODO: jdk hotspot 8,9,11,12,13,14
-        # TODO: jdk openj9 8,9,11,12,13,14
-        # TODO: jdk graalvm        
-        # TODO: maven  
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_criu.sh
+	./setup_criu.sh
+	
+	############################################
+        # DOCKER
+        ############################################
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_docker.sh
+	./setup_docker.sh
+
+	############################################
+        # JDK 11 - OPENJ9
+        ############################################
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_jdk_11_openj9.sh
+	./setup_jdk_11_openj9.sh
+	
+	############################################
+        # JDK 11 - HOTSPOT
+        ############################################
+	cd $SCRIPTS_DIR
+	# java -Xshare:dump
+	./prepare_script.sh setup_jdk_11_hotspot.sh
+	./setup_jdk_11_hotspot.sh
+
+	############################################
+        # MAVEN
+        ############################################
+	cd $SCRIPTS_DIR
+	./prepare_script.sh setup_maven.sh
+	./setup_maven.sh
+
+        # TODO:
+	# add functions to .bashrc 
+	# add settings like MAVEN_OPTS for openj9 and hotspot
+	# add functions dump and restore using criu for payara-micro
+	# add payara micro
+	# add default jee8 project? 
+	# add function to 
+	# add dark, light themes switcheable by F-Keys
+	# scite?
+	# intellj community with launcher
+	# vscode with launcher - dont use snap its slower
+	
 
 	SHELL
 end
