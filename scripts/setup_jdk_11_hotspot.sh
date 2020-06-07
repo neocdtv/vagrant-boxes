@@ -2,7 +2,7 @@
 JDK_ZULU=$USER_HOME/Apps/jdks/hotspot/zulu
 mkdir -p $JDK_ZULU
 cd $JDK_ZULU
-curl -L -O https://cdn.azul.com/zulu/bin/zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
+curl --progress-bar -L -O https://cdn.azul.com/zulu/bin/zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
 tar -xzvf zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
 rm zulu11.39.15-ca-jdk11.0.7-linux_x64.tar.gz
 

@@ -6,7 +6,7 @@ apt-get update
 apt-get install -y docker-ce
 echo "{\"experimental\": true}" >> /etc/docker/daemon.json
 
-curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl --progress-bar -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 usermod -aG docker vagrant
