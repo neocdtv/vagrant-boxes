@@ -13,7 +13,10 @@ echo "jdk_11_hotspot() {" >> $USER_HOME/.bashrc
 echo "	export JAVA_HOME=$JDK_ZULU/zulu11.39.15-ca-jdk11.0.7-linux_x64"  >> $USER_HOME/.bashrc
 echo '	export PATH="$JAVA_HOME/bin:$PATH"'  >> $USER_HOME/.bashrc
 echo '	export MAVEN_OPTS="$MAVEN_OPTS_HOTSPOT"' >> $USER_HOME/.bashrc
-# add dump
+echo '	if [ ! -f "$JDK_ZULU/zulu11.39.15-ca-jdk11.0.7-linux_x64/lib/server/classes.jsa" ]' >> $USER_HOME/.bashrc
+echo "	    then" >> $USER_HOME/.bashrc
+echo "		    java -Xshare:dump" >> $USER_HOME/.bashrc
+echo "   fi" >> $USER_HOME/.bashrc
 echo "}" >> $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.bashrc
 # configure hotspot 11 as default jdk
