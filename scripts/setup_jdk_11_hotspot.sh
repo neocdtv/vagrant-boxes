@@ -22,5 +22,3 @@ echo "}" >> $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.bashrc
 # configure hotspot 11 as default jdk
 echo "jdk_11_hotspot" >> $USER_HOME/.bashrc
-
-cd $USER_HOME
