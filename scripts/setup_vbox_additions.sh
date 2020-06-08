@@ -7,4 +7,3 @@ mkdir -p /media/cdrom
 mount -o loop ./VBoxGuestAdditions.iso /media/cdrom
 cd /media/cdrom
 printf yes\\n | ./VBoxLinuxAdditions.run   
-cd $USER_HOME

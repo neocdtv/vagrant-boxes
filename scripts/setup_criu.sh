@@ -8,4 +8,3 @@ cd criu
 make
 cp ./criu/criu /usr/local/bin/
 cp ./scripts/criu-ns /usr/local/bin/
-cd $USER_HOME

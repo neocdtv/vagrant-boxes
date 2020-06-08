@@ -19,5 +19,3 @@ echo '	export MAVEN_OPTS="$MAVEN_OPTS_OPENJ9"' >> $USER_HOME/.bashrc
 #echo "   fi" >> $USER_HOME/.bashrc
 echo "}" >> $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.bashrc
-
-cd $USER_HOME
