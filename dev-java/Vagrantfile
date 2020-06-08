@@ -32,12 +32,14 @@ Vagrant.configure("2") do |config|
 	export USER_HOME="/home/vagrant"
 	export DEBIAN_FRONTEND=noninteractive
 	export SCRIPTS_DIR=$USER_HOME/scripts
+	export PATH="$SCRIPTS_DIR:$PATH"
 	mkdir -p "$SCRIPTS_DIR"
 	apt update  
 	
 	cd $SCRIPTS_DIR
-	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/prepare_script.sh
-	chmod a+x ./prepare_script.sh
+	curl -O https://raw.githubusercontent.com/neocdtv/vagrant-boxes/master/scripts/run_script.sh
+	chmod a+x ./run_script.sh
+	cd $USER_HOME
 	
         # disable sudo-password for vagrant-user
     	echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
@@ -45,65 +47,48 @@ Vagrant.configure("2") do |config|
 	############################################
         # LOCALIZATIONS                           
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_keyboard_de.sh
-	./setup_keyboard_de.sh
+	run_script.sh setup_keyboard_de.sh
 
         ############################################
         # VBOX ADDITIONS                           
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_vbox_additions.sh
-	./setup_vbox_additions.sh
+	run_script.sh setup_vbox_additions.sh
 	
         ############################################
         # CRIU                                     
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_criu.sh
-	./setup_criu.sh
+	run_script.sh setup_criu.sh
 	
 	############################################
         # DOCKER
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_docker.sh
-	./setup_docker.sh
+	run_script.sh setup_docker.sh
 
 	############################################
         # JDK 11 - OPENJ9
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_jdk_11_openj9.sh
-	./setup_jdk_11_openj9.sh
+	run_script.sh setup_jdk_11_openj9.sh
 	
 	############################################
         # JDK 11 - HOTSPOT
         ############################################
-	cd $SCRIPTS_DIR
-	# java -Xshare:dump
-	./prepare_script.sh setup_jdk_11_hotspot.sh
-	./setup_jdk_11_hotspot.sh
+	run_script.sh setup_jdk_11_hotspot.sh
 
 	############################################
         # MAVEN
         ############################################
-	cd $SCRIPTS_DIR
-	./prepare_script.sh setup_maven.sh
-	./setup_maven.sh
+	run_script.sh setup_maven.sh
 
         # TODO:
-	# add functions to .bashrc 
-	# add settings like MAVEN_OPTS for openj9 and hotspot
+	# add settings like MAVEN_OPTS for openj9
 	# add functions dump and restore using criu for payara-micro
 	# add payara micro
 	# add default jee8 project? 
-	# add function to 
 	# add dark, light themes switcheable by F-Keys
 	# scite?
 	# intellj community with launcher
 	# vscode with launcher - dont use snap its slower
-	
+	# watch files
 
 	SHELL
 end
