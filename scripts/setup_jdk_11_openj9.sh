@@ -7,7 +7,7 @@ tar -xzvf OpenJDK11U-jdk_x64_linux_openj9_11.0.7_10_openj9-0.20.0.tar.gz
 rm OpenJDK11U-jdk_x64_linux_openj9_11.0.7_10_openj9-0.20.0.tar.gz
 chmod -R a+rwx jdk-11.0.7+10
 echo "" >> $USER_HOME/.bashrc
-echo 'export MAVEN_OPTS_OPENJ9=""' >> $USER_HOME/.bashrc
+echo 'export MAVEN_OPTS_OPENJ9="-Xquickstart -Xshareclasses:name=mvn -DargLine=-Xquickstart -Xverify:none"' >> $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.bashrc
 echo "jdk_11_openj9() {" >> $USER_HOME/.bashrc
 echo "	export JAVA_HOME=$JDK_ECLIPSE/jdk-11.0.7+10"  >> $USER_HOME/.bashrc
