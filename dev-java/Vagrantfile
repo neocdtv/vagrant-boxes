@@ -86,14 +86,22 @@ Vagrant.configure("2") do |config|
 	run_script.sh setup_intellij.sh
 	
 	############################################
+        # SciTE
+        ############################################
+	run_script.sh setup_scite.sh
+	
+	############################################
+        # PAYARA MICRO
+        ############################################
+	run_script.sh setup_payara_micro.sh
+	
+	############################################
         # FIX PERMISSIONS
         ############################################	
 	chmod -R a+rwx $USER_HOME/scripts
 	chmod -R a+rwx $USER_HOME/Projects
 	chmod -R a+rwx $USER_HOME/Apps
 	
-	# TODO: extract
-	apt install scite
 	apt install inotify-tools
 	
 	# TODO: .bashrc
@@ -107,7 +115,6 @@ Vagrant.configure("2") do |config|
 	# add functions dump and restore using criu for payara-micro
 	# add payara micro
 	# add default jee8 project? 
-	# add dark, light themes switcheable by F-Keys
 	# vscode with launcher - dont use snap its slower
 
 	SHELL
