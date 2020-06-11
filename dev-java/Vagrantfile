@@ -79,17 +79,36 @@ Vagrant.configure("2") do |config|
         # MAVEN
         ############################################
 	run_script.sh setup_maven.sh
+	
+	############################################
+        # INTELLIJ
+        ############################################
+	run_script.sh setup_intellij.sh
+	
+	############################################
+        # FIX PERMISSIONS
+        ############################################	
+	chmod -R a+rwx $USER_HOME/scripts
+	chmod -R a+rwx $USER_HOME/Projects
+	chmod -R a+rwx $USER_HOME/Apps
+	
+	# TODO: extract
+	apt install scite
+	apt install inotify-tools
+	
+	# TODO: .bashrc
+	# F1 - make all
+	# F2 - make database
+	# F3 - make build-app 
+	# F4 - make run-app
+	# F4 - make unit-tests
 
         # TODO:
-	# add settings like MAVEN_OPTS for openj9
 	# add functions dump and restore using criu for payara-micro
 	# add payara micro
 	# add default jee8 project? 
 	# add dark, light themes switcheable by F-Keys
-	# scite?
-	# intellj community with launcher
 	# vscode with launcher - dont use snap its slower
-	# watch files
 
 	SHELL
 end
