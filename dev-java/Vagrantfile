@@ -41,11 +41,11 @@ Vagrant.configure("2") do |config|
 	git clone https://github.com/neocdtv/linux-setup.git
 	cd linux-setup/dev-java
 	chmod a+x ./setup.sh
+	./setup.sh
 	
 	############################################
         # FIX PERMISSIONS
         ############################################	
-	chmod -R a+rwx $USER_HOME/scripts
 	chmod -R a+rwx $USER_HOME/Projects
 	chmod -R a+rwx $USER_HOME/Apps
 	
