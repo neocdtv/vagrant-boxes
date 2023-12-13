@@ -32,7 +32,6 @@ Vagrant.configure("2") do |config|
     # BASIC INIT                            
     ############################################
     export VBOX_VERSION=#{ENV['VBOX_VERSION']};    		    
-    export HOME="/home/vagrant"
     export DEBIAN_FRONTEND=noninteractive
 	
     # disable sudo-password for vagrant-user
@@ -41,19 +40,17 @@ Vagrant.configure("2") do |config|
     apt update 
     apt install git -y
 	
+    rm -rf ./linux-setup
     git clone https://github.com/neocdtv/linux-setup.git
     cd linux-setup/dev-java
+    chown vagrant:vagrant ./setup.sh
     chmod a+x ./setup.sh
-    ./setup.sh
+
+    echo "Vagrantfile User: $USER"
+    sudo -u $USER ./setup.sh
 	
-     ############################################
-     # FIX PERMISSIONS
-     ############################################	
-     chmod -R a+rwx $USER_HOME/Projects
-     chmod -R a+rwx $USER_HOME/Apps
-	
-     apt install inotify-tools -y
-     apt install tree -y
+    apt install inotify-tools -y
+    apt install tree -y
 
 	
      # TODO: .bashrc
